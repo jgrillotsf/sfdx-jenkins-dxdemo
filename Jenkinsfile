@@ -104,7 +104,7 @@ node {
                 }
             }
 
-
+            /*
             // -------------------------------------------------------------------------
             // Create package version.
             // -------------------------------------------------------------------------
@@ -187,6 +187,17 @@ node {
                 rc = command "${toolbelt}/sfdx force:org:delete --targetusername installorg --noprompt"
                 if (rc != 0) {
                     error 'Salesforce package install scratch org deletion failed.'
+                }
+            }
+            */
+
+            // -------------------------------------------------------------------------
+            // Deploy Metadata to Production
+            // -------------------------------------------------------------------------
+            stage('Deploy Metadata to DevHub(Production)'){
+                rc = command "${toolbelt}/sfdx force:source:deploy -u HubOrg -p force-app/main/default -l ${TEST_LEVEL} --json"
+                if (rc != 0){
+                    error 'Salesforce Deployment of Metadata failed.'
                 }
             }
         }
